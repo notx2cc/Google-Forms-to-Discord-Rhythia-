@@ -14,6 +14,12 @@ A lightweight, automated Google Apps Script that intercepts Google Form submissi
 
 ## 🚀 Setup Instructions
 
+### 0.1 Form Questions (Only add the starred questions)
+<img width="852" height="816" alt="image" src="https://github.com/user-attachments/assets/6218ecc9-c8e9-4c10-a44a-594ace7fcdd9" />
+
+First setup your google forms like this
+
+
 ### 1. Form Script Installation
 1. Open your Google Form.
 2. Click the three dots (top right) ➔ **Script editor**.
