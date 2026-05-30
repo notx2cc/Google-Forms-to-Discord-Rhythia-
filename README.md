@@ -9,7 +9,7 @@ A lightweight, automated Google Apps Script that intercepts Google Form submissi
 * **Smart Fuzzy Match Engine:** Dynamically matches form questions containing keywords (like "link", "song", "creator", "stars") so question text changes won't break the script.
 * **Dynamic Difficulty Tiers:** Automatically reads the star rating and changes the embed's color and emoji (🟢 Easy, 🟡 Medium, 🔴 Hard, 🟣 Logic, ⚫ Tasukete).
 * **Automated Map Metadata:** Instantly extracts the unique Map ID from the URL and generates automated direct download links.
-* **Cover Art Scraper:** Automatically crawls the map page to find and attach the track's background image as the embed thumbnail.
+* **Cover Art Scraper:** Automatically crawls the map page to find and attach the Rhythia background image as the embed thumbnail.
 * **Dual-Webhook System:** Features a dedicated pipeline for main submissions and a separate backend pipeline for system logs and crash diagnostics.
 
 ## 🚀 Setup Instructions
