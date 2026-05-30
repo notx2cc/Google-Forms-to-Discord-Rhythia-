@@ -75,7 +75,7 @@ function onFormSubmit(e) {
     
     // THE MAIN DISCORD EMBED
     var embed = {
-      "title": "Map Submission: " + songTitle, // <--- No more #New or numbering
+      "title": "Map Submission: " + songTitle,
       "description": descriptionText,
       "color": embedColor, 
       "fields": [
@@ -112,24 +112,24 @@ function onFormSubmit(e) {
       } else if (responseCode >= 200 && responseCode < 300) {
         var finalDuration = ((Date.now() - startTime) / 1000).toFixed(2);
         
-        // ✅ SUCCESS LOG DISPATCHER (Sends directly to your logWebhookUrl)
+        // ✅ SUCCESS LOG DISPATCHER
         sendSystemLog(logWebhookUrl, "✅ Map Submission for **" + songTitle + "** processed successfully in " + finalDuration + "s.");
         break;
       }
     }
     
   } catch (error) {
-    // 🚨 ERROR DISPATCHER (Sends directly to your logWebhookUrl)
+    // 🚨 ERROR DISPATCHER
     sendEmergencyErrorNotification(logWebhookUrl, error.toString(), mapId || "Unknown");
   }
 }
 
 /**
- * Sends a clean success message to your logging channel
+ * Sends a clean success message to your logging channel with built-in diagnostics
  */
 function sendSystemLog(webhook, message) {
   try {
-    UrlFetchApp.fetch(webhook, {
+    var response = UrlFetchApp.fetch(webhook, {
       "method": "post", 
       "contentType": "application/json",
       "payload": JSON.stringify({ 
@@ -141,8 +141,16 @@ function sendSystemLog(webhook, message) {
       }),
       "muteHttpExceptions": true
     });
+    
+    var code = response.getResponseCode();
+    console.log("Log Webhook Response Code: " + code);
+    
+    // Explicit warning if Discord rejects the log payload
+    if (code < 200 || code >= 300) {
+      console.error("Discord rejected the system log. Response body: " + response.getContentText());
+    }
   } catch (e) {
-    Logger.log("Failed to send system log: " + e.toString());
+    console.error("Critical failure inside sendSystemLog function: " + e.toString());
   }
 }
 
