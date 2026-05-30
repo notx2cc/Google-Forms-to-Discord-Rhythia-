@@ -112,6 +112,9 @@ function onFormSubmit(e) {
       } else if (responseCode >= 200 && responseCode < 300) {
         var finalDuration = ((Date.now() - startTime) / 1000).toFixed(2);
         
+        // ⏳ ANTI-CLOUDFLARE BUFFER: Pause for 2 seconds to prevent Error 1015 blocks
+        Utilities.sleep(2000); 
+        
         // ✅ SUCCESS LOG DISPATCHER
         sendSystemLog(logWebhookUrl, "✅ Map Submission for **" + songTitle + "** processed successfully in " + finalDuration + "s.");
         break;
@@ -145,7 +148,6 @@ function sendSystemLog(webhook, message) {
     var code = response.getResponseCode();
     console.log("Log Webhook Response Code: " + code);
     
-    // Explicit warning if Discord rejects the log payload
     if (code < 200 || code >= 300) {
       console.error("Discord rejected the system log. Response body: " + response.getContentText());
     }
